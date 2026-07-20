@@ -1,28 +1,25 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Camera, ClipboardList, ShieldCheck, Sparkles, Utensils } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { Reveal } from '../components/Reveal';
 import { SectionHeader } from '../components/SectionHeader';
 import { ProgramCards } from '../components/ProgramCards';
 import { Included } from '../components/Included';
 import { ArticleGrid } from '../components/ArticleGrid';
 import { FaqList } from '../components/FaqList';
 import { FinalCta } from '../components/FinalCta';
+import { VideoFacade } from '../components/VideoFacade';
 import { wa } from '../lib/wa';
 import { articles, features, homeFaq, site, stats, type FaqTuple } from '../data';
 
 const heroImg = '/assets/media/photos/hero.webp';
-const videoId = 'VtKiX3_RKns';
 
 function iconFor(name: string) {
   const props = { size: 34, strokeWidth: 2.4 };
-  if (name === 'camera') return <svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth} strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>;
-  if (name === 'shield') return <svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth} strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>;
-  if (name === 'utensils') return <svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth} strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>;
-  return <svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth} strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h6"/><path d="M9 18h6"/><path d="M9 10h6"/></svg>;
-}
-
-function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`reveal ${className}`}>{children}</div>;
+  if (name === 'camera') return <Camera {...props} />;
+  if (name === 'shield') return <ShieldCheck {...props} />;
+  if (name === 'utensils') return <Utensils {...props} />;
+  return <ClipboardList {...props} />;
 }
 
 function VideoSection() {
@@ -33,20 +30,16 @@ function VideoSection() {
           <p className="eyebrow">Lihat Suasana Little Champ</p>
           <h2>Kenali Lingkungan Daycare Sebelum Berkunjung</h2>
           <p>
-            Lihat sekilas suasana kegiatan, ruang daycare, dan cara tim Little Champ mendampingi anak sepanjang hari. Video ini membantu orang tua mendapat gambaran awal sebelum menjadwalkan kunjungan langsung.
+            Lihat sekilas suasana kegiatan, ruang daycare, dan cara tim Little Champ mendampingi
+            anak sepanjang hari. Video ini membantu orang tua mendapat gambaran awal sebelum
+            menjadwalkan kunjungan langsung.
           </p>
-          <p className="small-note">Video diputar otomatis tanpa suara. Aktifkan suara untuk menonton dengan audio.</p>
+          <p className="small-note">
+            Video diputar otomatis tanpa suara. Aktifkan suara untuk menonton dengan audio.
+          </p>
         </Reveal>
         <Reveal>
-          <div className="video-frame">
-            <iframe
-              title="Little Champ Daycare video"
-              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${videoId}&controls=1&rel=0&modestbranding=1`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              loading="lazy"
-            />
-          </div>
+          <VideoFacade />
         </Reveal>
       </div>
     </section>
@@ -61,7 +54,8 @@ function ProblemSection() {
           <p className="eyebrow">Kenapa ini penting</p>
           <h2>Ibu bekerja berhak tenang. Anak berhak berkembang optimal.</h2>
           <p>
-            Little Champ menjawab kebutuhan keluarga melalui sistem yang menggabungkan pengasuhan, transparansi, nutrisi, caregiver profesional, dan pemantauan perkembangan.
+            Little Champ menjawab kebutuhan keluarga melalui sistem yang menggabungkan pengasuhan,
+            transparansi, nutrisi, caregiver profesional, dan pemantauan perkembangan.
           </p>
           <ul className="check-list">
             <li>Golden window usia 0-5 tahun perlu stimulasi konsisten.</li>
@@ -152,7 +146,10 @@ function DaySection() {
             <Reveal className="timeline-item" key={time}>
               <span>{time}</span>
               <h3>{title}</h3>
-              <p>Aktivitas dilakukan dengan pendampingan caregiver dan komunikasi harian ke orang tua.</p>
+              <p>
+                Aktivitas dilakukan dengan pendampingan caregiver dan komunikasi harian ke orang
+                tua.
+              </p>
             </Reveal>
           ))}
         </div>
@@ -168,7 +165,10 @@ function CaregiverSection() {
         <Reveal>
           <p className="eyebrow">Tim caregiver</p>
           <h2>Dilatih, tersertifikasi, dan disupervisi.</h2>
-          <p>Caregiver Little Champ memiliki latar belakang pengasuhan dan kesehatan anak yang mendukung pendampingan harian.</p>
+          <p>
+            Caregiver Little Champ memiliki latar belakang pengasuhan dan kesehatan anak yang
+            mendukung pendampingan harian.
+          </p>
           <ul className="check-list">
             <li>Latar pengasuhan dan kesehatan anak.</li>
             <li>Training intensif dan supervisi berkala.</li>
@@ -202,7 +202,10 @@ function Testimonials() {
     <section className="section">
       <div className="container">
         <Reveal>
-          <SectionHeader eyebrow="Kata orang tua" title="Kepercayaan yang tidak kami anggap ringan." />
+          <SectionHeader
+            eyebrow="Kata orang tua"
+            title="Kepercayaan yang tidak kami anggap ringan."
+          />
         </Reveal>
         <div className="quote-grid">
           {quotes.map((q, i) => (
@@ -251,7 +254,9 @@ function HomeFAQ() {
         <Reveal>
           <div className="faq-cta">
             <h3>Masih punya pertanyaan lain?</h3>
-            <p>Lihat halaman FAQ lengkap atau chat tim Little Champ untuk konsultasi kebutuhan anak.</p>
+            <p>
+              Lihat halaman FAQ lengkap atau chat tim Little Champ untuk konsultasi kebutuhan anak.
+            </p>
             <div className="cta-row center">
               <Link className="btn ghost" to="/faq">
                 Lihat Semua FAQ
@@ -270,14 +275,18 @@ function HomeFAQ() {
 export function Home() {
   return (
     <>
-      <SEO title="Little Champ Daycare | Daycare Berbasis Tumbuh Kembang Anak" description={site.description} />
+      <SEO
+        title="Little Champ Daycare | Daycare Berbasis Tumbuh Kembang Anak"
+        description={site.description}
+      />
       <section className="hero">
         <div className="container hero-grid">
           <Reveal>
             <p className="eyebrow">Pioneer layanan childcare berbasis tumbuh kembang anak</p>
             <h1>Daycare yang membantu orang tua bekerja dengan tenang.</h1>
             <p className="lead">
-              Tempat titip anak bukan sekadar penitipan. Ini tentang keamanan, transparansi, nutrisi, caregiver profesional, dan pemantauan tumbuh kembang yang terjaga.
+              Tempat titip anak bukan sekadar penitipan. Ini tentang keamanan, transparansi,
+              nutrisi, caregiver profesional, dan pemantauan tumbuh kembang yang terjaga.
             </p>
             <div className="cta-row">
               <Link className="btn" to="/contact">
@@ -296,6 +305,7 @@ export function Home() {
                 width="600"
                 height="450"
                 loading="eager"
+                fetchPriority="high"
                 decoding="async"
               />
               <div className="motion-badge">

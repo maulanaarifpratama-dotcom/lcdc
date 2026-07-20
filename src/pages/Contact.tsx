@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { Reveal } from '../components/Reveal';
 import { PageHero } from '../components/PageHero';
 import { wa } from '../lib/wa';
 import { site } from '../data';
-
-function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`reveal ${className}`}>{children}</div>;
-}
 
 export function Contact() {
   const [name, setName] = useState('');
@@ -23,12 +20,23 @@ export function Contact() {
       setSubmitted(true);
       return;
     }
+    window.open(wa(msg), '_blank', 'noopener,noreferrer');
+    e.preventDefault();
   }
 
   return (
     <>
-      <SEO title="Contact Little Champ Daycare" description="Jadwalkan visit gratis ke Little Champ Daycare." image="/assets/media/photos/caregiver-squad.webp" />
-      <PageHero eyebrow="Contact" title="Jadwalkan Kunjungan Gratis" desc="Lihat langsung fasilitas, temui caregiver, dan rasakan bedanya sistem pengasuhan Little Champ." image="/assets/media/photos/caregiver-squad.webp" />
+      <SEO
+        title="Contact Little Champ Daycare"
+        description="Jadwalkan visit gratis ke Little Champ Daycare."
+        image="/assets/media/photos/caregiver-squad.webp"
+      />
+      <PageHero
+        eyebrow="Contact"
+        title="Jadwalkan Kunjungan Gratis"
+        desc="Lihat langsung fasilitas, temui caregiver, dan rasakan bedanya sistem pengasuhan Little Champ."
+        image="/assets/media/photos/caregiver-squad.webp"
+      />
       <section className="section">
         <div className="container contact-grid">
           <Reveal className="card">
@@ -60,7 +68,9 @@ export function Contact() {
         <div className="container form-wrap">
           <Reveal className="form-card">
             <h2>Form WhatsApp cepat</h2>
-            <p>Isi data singkat, lalu sistem akan membuka WhatsApp dengan pesan yang sudah disiapkan.</p>
+            <p>
+              Isi data singkat, lalu sistem akan membuka WhatsApp dengan pesan yang sudah disiapkan.
+            </p>
             <form onSubmit={handleSubmit} noValidate>
               <input
                 value={name}
@@ -83,18 +93,9 @@ export function Contact() {
                   Mohon isi nama orang tua dan usia anak sebelum mengirim.
                 </p>
               )}
-              <a
-                className="btn"
-                href={wa(msg)}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-disabled={!canSubmit}
-                onClick={(e) => {
-                  if (!canSubmit) e.preventDefault();
-                }}
-              >
+              <button className="btn" type="submit" disabled={!canSubmit}>
                 Kirim via WhatsApp
-              </a>
+              </button>
             </form>
           </Reveal>
         </div>

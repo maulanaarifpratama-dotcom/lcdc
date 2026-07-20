@@ -11,7 +11,7 @@ const required = [
   'src/main.tsx',
   'src/App.tsx',
   'src/styles.css',
-  'src/data.ts'
+  'src/data/index.ts'
 ];
 let ok = true;
 for (const file of required) {
@@ -34,18 +34,20 @@ for (const text of ['Kenali Lingkungan Daycare Sebelum Berkunjung', 'Pioneer lay
     ok = false;
   }
 }
-const data = fs.readFileSync('src/data.ts', 'utf8');
+const articlesData = fs.readFileSync('src/data/articles.ts', 'utf8');
+const faqData = fs.readFileSync('src/data/faqs.ts', 'utf8');
+const allData = articlesData + faqData;
 for (const text of ['faqGroups', 'homeFaq', 'programFaq', 'facilityFaq', 'KPSP', 'Denver II']) {
-  if (!data.includes(text)) {
+  if (!allData.includes(text)) {
     console.error('Missing data text', text);
     ok = false;
   }
 }
-if (data.includes('Churn Rate')) {
+if (allData.includes('Churn Rate')) {
   console.error('Churn Rate should not be in stats');
   ok = false;
 }
-const slugs = [...data.matchAll(/"slug": "([^"]+)"/g)].map((m) => m[1]);
+const slugs = [...articlesData.matchAll(/slug:\s*'([^']+)'/g)].map((m) => m[1]);
 if (slugs.length < 6) {
   console.error('Need at least 6 article slugs');
   ok = false;
@@ -72,5 +74,13 @@ for (const p of expectedPages) {
     ok = false;
   }
 }
-if (ok) console.log('Validation passed: V5.1 — refactored structure, bug fixes, accessibility, SEO, lazy loading.');
+const components = fs.readdirSync('src/components');
+const expectedComponents = ['Reveal.tsx', 'SEO.tsx', 'SectionHeader.tsx', 'PageHero.tsx', 'FaqList.tsx', 'ArticleGrid.tsx', 'FinalCta.tsx', 'ProgramCards.tsx', 'Included.tsx', 'ErrorBoundary.tsx', 'VideoFacade.tsx'];
+for (const c of expectedComponents) {
+  if (!components.includes(c)) {
+    console.error('Missing component', c);
+    ok = false;
+  }
+}
+if (ok) console.log('Validation passed: V5.2 — split data, shared Reveal, YouTube facade, ErrorBoundary, analytics, CI, husky.');
 else process.exit(1);

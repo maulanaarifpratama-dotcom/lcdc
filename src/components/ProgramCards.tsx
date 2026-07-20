@@ -1,15 +1,4 @@
-import { Camera, ClipboardList, ShieldCheck, Utensils } from 'lucide-react';
 import { programs } from '../data';
-
-function iconFor(name: string) {
-  const props = { size: 34, strokeWidth: 2.4 };
-  if (name === 'camera') return <Camera {...props} />;
-  if (name === 'shield') return <ShieldCheck {...props} />;
-  if (name === 'utensils') return <Utensils {...props} />;
-  return <ClipboardList {...props} />;
-}
-
-export { iconFor };
 
 export function ProgramCards() {
   return (

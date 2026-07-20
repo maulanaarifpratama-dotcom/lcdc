@@ -1,4 +1,4 @@
-type FaqTuple = [string, string];
+import type { FaqTuple } from '../data';
 
 interface FaqListProps {
   items: FaqTuple[];
